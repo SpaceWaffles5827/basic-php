@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Not-so-Great Fake-A-Database AJAX Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <h1>Course and Textbook Management</h1>
+    <div id="addUpdateSections">
+        <section>
+            <h2>Add Course</h2>
+            <form id="courseForm">
+                <label for="courseTitle">Course Title:</label>
+                <input type="text" id="courseTitle" name="courseTitle" required><br>
+                <input type="submit" value="Add Course">
+            </form>
+        </section>
+
+        <section id="updateCourseSection" style="display:none;">
+            <h2>Update Course</h2>
+            <form id="updateCourseForm">
+                <input type="hidden" id="updateCourseId" name="courseId">
+                <label for="updateCourseTitle">Course Title:</label>
+                <input type="text" id="updateCourseTitle" name="courseTitle" required><br>
+                <input type="submit" value="Update Course">
+                <button type="button" class="cancelButton">Cancel</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Add Textbook</h2>
+            <form id="textbookForm">
+                <label for="textbookTitle">Textbook Title:</label>
+                <input type="text" id="textbookTitle" name="textbookTitle" required><br>
+                <label for="textbookPublisher">Publisher:</label>
+                <input type="text" id="textbookPublisher" name="textbookPublisher" required><br>
+                <label for="textbookEdition">Edition:</label>
+                <input type="number" id="textbookEdition" name="textbookEdition" required><br>
+                <label for="textbookYear">Year of Publication:</label>
+                <input type="number" id="textbookYear" name="textbookYear" required><br>
+                <input type="submit" value="Add Textbook">
+            </form>
+        </section>
+    
+        <section id="updateTextbookSection" style="display:none;">
+            <h2>Update Textbook</h2>
+            <form id="updateTextbookForm">
+                <input type="hidden" id="updateTextbookId" name="textbookId">
+                <label for="updateTextbookTitle">Textbook Title:</label>
+                <input type="text" id="updateTextbookTitle" name="textbookTitle" required><br>
+                <label for="updateTextbookPublisher">Publisher:</label>
+                <input type="text" id="updateTextbookPublisher" name="textbookPublisher" required><br>
+                <label for="updateTextbookEdition">Edition:</label>
+                <input type="number" id="updateTextbookEdition" name="textbookEdition" required><br>
+                <label for="updateTextbookYear">Year of Publication:</label>
+                <input type="number" id="updateTextbookYear" name="textbookYear" required><br>
+                <input type="submit" value="Update Textbook">
+                <button type="button" class="cancelButton">Cancel</button>
+            </form>
+        </section>
+        
+        <section>
+            <h2>Add Student</h2>
+            <form id="studentForm">
+                <label for="studentName">Student Name:</label>
+                <input type="text" id="studentName" name="studentName" required><br>
+                <input type="submit" value="Add Student">
+            </form>
+        </section>
+
+        <section id="updateStudentSection" style="display:none;">
+            <h2>Update Student</h2>
+            <form id="updateStudentForm">
+                <input type="hidden" id="updateStudentId" name="studentId">
+                <label for="updateStudentName">Student Name:</label>
+                <input type="text" id="updateStudentName" name="studentName" required><br>
+                <input type="submit" value="Update Student">
+                <button type="button" class="cancelButton">Cancel</button>
+            </form>
+        </section>
+    </div>
+
+    <section id="displayArea">
+        <h2>Current Data</h2>
+        <!-- Data display area -->
+    </section>
+</body>
+</html>

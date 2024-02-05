@@ -1,0 +1,32 @@
+{
+    "courses": {
+        "course_65c15cdac8fc2": {
+            "title": "Jacks class"
+        },
+        "course_65c15fd89a2bc": {
+            "title": "HY100"
+        },
+        "course_65c15fdf807cf": {
+            "title": "HY200"
+        }
+    },
+    "textbooks": {
+        "textbook_65c15cec3e387": {
+            "title": "Billy bobs book",
+            "publisher": "idk",
+            "edition": "123",
+            "year": "1919"
+        }
+    },
+    "students": {
+        "student_65c15cf25e4a3": {
+            "name": "Jeff"
+        },
+        "student_65c15cf9885f4": {
+            "name": "Jack"
+        },
+        "student_65c15fcebf077": {
+            "name": "HY100"
+        }
+    }
+}
