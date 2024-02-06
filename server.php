@@ -174,6 +174,7 @@ function removeTextbookFromStudent($data) {
 
     if (($key = array_search($textbookId, $allData['students'][$studentId]['textbooks'])) !== false) {
         unset($allData['students'][$studentId]['textbooks'][$key]);
+        $allData['students'][$studentId]['textbooks'] = array_values($allData['students'][$studentId]['textbooks']);
     }
 
     saveData($allData);
@@ -203,7 +204,6 @@ function updateCourse($data) {
         echo json_encode(['success' => false, 'message' => 'Course not found']);
     }
 }
-
 
 function updateTextbook($data) {
     $allData = loadData();

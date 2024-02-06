@@ -15,17 +15,17 @@
                 "course_65c1a71b97e16"
             ],
             "textbooks": [
-                "textbook_65c1a72399409",
-                "textbook_65c1b819d10f2"
+                "textbook_65c27069ba194",
+                "textbook_65c1a72399409"
             ]
         },
-        "student_65c1c0d953077": {
-            "name": "Sam",
+        "student_65c2706f000ec": {
+            "name": "Bob",
             "enrolledCourses": [
                 "course_65c1a71b97e16"
             ],
             "textbooks": [
-                "textbook_65c1b819d10f2"
+                "textbook_65c27069ba194"
             ]
         }
     },
@@ -41,6 +41,12 @@
             "publisher": "123",
             "edition": "123",
             "year": "23"
+        },
+        "textbook_65c27069ba194": {
+            "title": "bobs book",
+            "publisher": "Jack",
+            "edition": "432",
+            "year": "2020"
         }
     }
 }
