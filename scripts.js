@@ -66,19 +66,36 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function updateCourse() {
-    const courseData = {
+    const courseId = document.getElementById('updateCourseId').value;
+    const title = document.getElementById('updateCourseTitle').value;
+    let primaryTextbooks = Array.from(document.getElementById('updatePrimaryTextbooks').selectedOptions).map(option => option.value);
+    let secondaryTextbooks = Array.from(document.getElementById('updateSecondaryTextbooks').selectedOptions).map(option => option.value);
+
+    // Filter out 'none' value if present
+    primaryTextbooks = primaryTextbooks.filter(value => value !== "none");
+    secondaryTextbooks = secondaryTextbooks.filter(value => value !== "none");
+
+    // Merge primary and secondary textbooks into a single array
+    const textbooks = [...primaryTextbooks, ...secondaryTextbooks];
+
+    const data = {
         action: "updateCourse",
-        courseId: document.getElementById("updateCourseId").value,
-        title: document.getElementById("updateCourseTitle").value,
+        courseId: courseId,
+        title: title,
+        textbooks: textbooks // Send as a single merged array
     };
-    sendFormData("server.php", courseData, function(response) {
+
+    sendFormData("server.php", data, function(response) {
         if (response.success) {
             alert("Course updated successfully");
-            fetchData(); // Refresh data display
+            fetchData(); // Refresh to show updated data
             document.getElementById('updateCourseSection').style.display = 'none';
+        } else {
+            alert("Failed to update course: " + (response.message || "Unknown error"));
         }
     });
 }
+
 
 function removeTextbookFromStudent(studentId, textbookId) {
     const data = {
@@ -145,7 +162,7 @@ function updateStudent() {
     });
 }
 
-function showUpdateCourseForm(courseId, courseTitle) {
+function showUpdateCourseForm(courseId, courseTitle, data) {
     const updateCourseSection = document.getElementById('updateCourseSection');
     const updateCourseId = document.getElementById('updateCourseId');
     const updateCourseTitle = document.getElementById('updateCourseTitle');
@@ -156,22 +173,38 @@ function showUpdateCourseForm(courseId, courseTitle) {
     updateCourseId.value = courseId;
     updateCourseTitle.value = courseTitle;
 
-    // Assuming `fetchAll` also fetches textbooks and you have a way to distinguish primary from secondary textbooks
-    // For demonstration, let's say `courseDetails` is the object with the course's current details, including textbooks
-    const courseDetails = {/* fetch course details somehow, using courseId */};
+    // Clear existing options
+    updatePrimaryTextbooks.innerHTML = '';
+    updateSecondaryTextbooks.innerHTML = '';
 
-    // Clear existing selections
-    Array.from(updatePrimaryTextbooks.options).forEach(option => option.selected = false);
-    Array.from(updateSecondaryTextbooks.options).forEach(option => option.selected = false);
+    // Add options for primary textbooks
+    const primaryNoneOption = document.createElement('option');
+    primaryNoneOption.value = "none";
+    primaryNoneOption.textContent = "None";
+    updatePrimaryTextbooks.appendChild(primaryNoneOption);
 
-    // Pre-select the textbooks associated with the course
-    courseDetails.primaryTextbooks.forEach(textbookId => {
-        const option = updatePrimaryTextbooks.querySelector(`option[value="${textbookId}"]`);
-        if (option) option.selected = true;
+    // Add options for secondary textbooks
+    const secondaryNoneOption = document.createElement("option");
+    secondaryNoneOption.value = "none";
+    secondaryNoneOption.textContent = "None";
+    updateSecondaryTextbooks.appendChild(secondaryNoneOption);
+
+    // Add all textbooks to the dropdowns
+    Object.entries(data.textbooks).forEach(([textbookId, textbook]) => {
+        const option = document.createElement('option');
+        option.value = textbookId;
+        option.textContent = textbook.title;
+        updatePrimaryTextbooks.appendChild(option);
+
+        const secondaryOption = option.cloneNode(true);
+        updateSecondaryTextbooks.appendChild(secondaryOption);
     });
-    courseDetails.secondaryTextbooks.forEach(textbookId => {
-        const option = updateSecondaryTextbooks.querySelector(`option[value="${textbookId}"]`);
-        if (option) option.selected = true;
+
+    // Pre-select the textbooks that are already associated with the course
+    const course = data.courses[courseId];
+    course.textbooks.forEach(textbookId => {
+        updatePrimaryTextbooks.querySelector(`option[value="${textbookId}"]`).selected = true;
+        updateSecondaryTextbooks.querySelector(`option[value="${textbookId}"]`).selected = true;
     });
 
     updateCourseSection.style.display = 'block';
@@ -458,7 +491,7 @@ function fetchData() {
 
                 const updateButton = document.createElement('button');
                 updateButton.textContent = 'Update';
-                updateButton.onclick = () => showUpdateCourseForm(courseId, course.title); // Function to show and pre-fill the course update form
+                updateButton.onclick = () => showUpdateCourseForm(courseId, course.title, response.data); // Function to show and pre-fill the course update form
                 li.appendChild(updateButton);
 
                 // add remove course button

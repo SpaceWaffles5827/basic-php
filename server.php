@@ -195,15 +195,15 @@ function addStudent($data) {
 function updateCourse($data) {
     $allData = loadData();
     if (isset($allData['courses'][$data['courseId']])) {
-        $course = &$allData['courses'][$data['courseId']];
-        $course['title'] = $data['title'];
-        $course['textbooks'] = array_merge($data['primaryTextbooks'], $data['secondaryTextbooks']);
+        $allData['courses'][$data['courseId']]['title'] = $data['title'];
+        $allData['courses'][$data['courseId']]['textbooks'] = $data['textbooks'];
         saveData($allData);
         echo json_encode(['success' => true, 'message' => 'Course updated successfully']);
     } else {
         echo json_encode(['success' => false, 'message' => 'Course not found']);
     }
 }
+
 
 function updateTextbook($data) {
     $allData = loadData();

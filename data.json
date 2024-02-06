@@ -1,8 +1,11 @@
 {
     "courses": {
         "course_65c1a71b97e16": {
-            "title": "Jacks class",
-            "textbooks": []
+            "title": "Jacks class 123",
+            "textbooks": [
+                "textbook_65c1a72399409",
+                "textbook_65c1b819d10f2"
+            ]
         }
     },
     "students": {
