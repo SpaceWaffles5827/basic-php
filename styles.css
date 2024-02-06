@@ -72,3 +72,10 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+#courseTextbooks {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}

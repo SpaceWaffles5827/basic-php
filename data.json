@@ -1,32 +1,107 @@
 {
     "courses": {
-        "course_65c15cdac8fc2": {
-            "title": "Jacks class"
+        "course_1": {
+            "title": "Introduction to Programming",
+            "textbooks": [
+                "textbook_1",
+                "textbook_2"
+            ]
         },
-        "course_65c15fd89a2bc": {
-            "title": "HY100"
+        "course_65c180a3c71a1": {
+            "title": "test123",
+            "textbooks": []
         },
-        "course_65c15fdf807cf": {
-            "title": "HY200"
-        }
-    },
-    "textbooks": {
-        "textbook_65c15cec3e387": {
-            "title": "Billy bobs book",
-            "publisher": "idk",
-            "edition": "123",
-            "year": "1919"
+        "course_65c182b97035d": {
+            "title": "Jacks course",
+            "textbooks": []
+        },
+        "course_65c183da2ab64": {
+            "title": "Samirs class",
+            "textbooks": []
+        },
+        "course_65c18425ee7f8": {
+            "title": "Samirs class2",
+            "textbooks": []
+        },
+        "course_65c1843b4679c": {
+            "title": "123",
+            "textbooks": [
+                "textbook_2"
+            ]
+        },
+        "course_65c1845110f4c": {
+            "title": "321",
+            "textbooks": [
+                "textbook_65c1844d5bb79"
+            ]
+        },
+        "course_65c1855e22ce7": {
+            "title": "prog",
+            "textbooks": [
+                "textbook_1"
+            ]
+        },
+        "course_65c18794343f1": {
+            "title": "test samir",
+            "textbooks": [
+                "textbook_1",
+                "textbook_2"
+            ]
         }
     },
     "students": {
-        "student_65c15cf25e4a3": {
-            "name": "Jeff"
+        "student_1": {
+            "name": "Sam 123",
+            "enrolledCourses": [
+                "course_1",
+                "course_65c180a3c71a1",
+                "course_65c1855e22ce7",
+                "course_65c183da2ab64"
+            ]
         },
-        "student_65c15cf9885f4": {
-            "name": "Jack"
+        "student_65c18b97a189e": {
+            "name": "Jack",
+            "enrolledCourses": [
+                "course_1"
+            ]
+        }
+    },
+    "textbooks": {
+        "textbook_1": {
+            "title": "Programming Basics 123",
+            "publisher": "pppp",
+            "edition": "2",
+            "year": "2020"
         },
-        "student_65c15fcebf077": {
-            "name": "HY100"
+        "textbook_2": {
+            "title": "Advanced Programming",
+            "publisher": "ABC",
+            "edition": "2",
+            "year": "2022"
+        },
+        "textbook_65c180ae0a9fa": {
+            "title": "Jack textbook",
+            "publisher": "123",
+            "edition": "123",
+            "year": "123"
+        },
+        "textbook_65c1844d5bb79": {
+            "title": "bobs book",
+            "publisher": "123",
+            "edition": "123",
+            "year": "123"
+        },
+        "textbook_65c1884fd97bf": {
+            "title": "joes book",
+            "publisher": "jack",
+            "edition": "321",
+            "year": "321"
+        },
+        "textbook_65c18be98329f": {
+            "title": "test book 123",
+            "publisher": "123",
+            "edition": "123",
+            "year": "123"
         }
     }
 }

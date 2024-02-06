@@ -21,6 +21,12 @@ header('Content-Type: application/json');
 $requestData = json_decode(file_get_contents('php://input'), true);
 
 switch ($requestData['action']) {
+    case 'removeStudentFromCourse':
+        removeStudentFromCourse($requestData);
+        break;
+    case 'addStudentToCourse':
+        addStudentToCourse($requestData);
+        break;
     case 'updateCourse':
         updateCourse($requestData);
         break;    
@@ -47,10 +53,44 @@ switch ($requestData['action']) {
         break;
 }
 
+function removeStudentFromCourse($data) {
+    $allData = loadData();
+    $studentId = $data['studentId'];
+    $courseId = $data['courseId'];
+
+    // Remove the course from the student's list of enrolled courses
+    if (($key = array_search($courseId, $allData['students'][$studentId]['enrolledCourses'])) !== false) {
+        unset($allData['students'][$studentId]['enrolledCourses'][$key]);
+    }
+
+    // Save the updated data
+    saveData($allData);
+    echo json_encode(['success' => true, 'message' => 'Student removed from course successfully']);
+}
+
+function addStudentToCourse($data) {
+    $allData = loadData();
+    $studentId = $data['studentId'];
+    $courseId = $data['courseId'];
+
+    if (!in_array($courseId, $allData['students'][$studentId]['enrolledCourses'])) {
+        $allData['students'][$studentId]['enrolledCourses'][] = $courseId;
+    }
+
+    saveData($allData);
+    echo json_encode(['success' => true, 'message' => 'Student added to course successfully']);
+}
+
 function addCourse($data) {
     $allData = loadData();
     $courseId = uniqid('course_');
-    $allData['courses'][$courseId] = ['title' => $data['title']];
+    $primaryTextbooks = isset($data['primaryTextbooks']) ? $data['primaryTextbooks'] : [];
+    $secondaryTextbooks = isset($data['secondaryTextbooks']) ? $data['secondaryTextbooks'] : [];
+
+    $allData['courses'][$courseId] = [
+        'title' => $data['title'],
+        'textbooks' => array_merge($primaryTextbooks, $secondaryTextbooks)
+    ];
     saveData($allData);
     echo json_encode(['success' => true, 'message' => 'Course added successfully']);
 }
@@ -71,7 +111,10 @@ function addTextbook($data) {
 function addStudent($data) {
     $allData = loadData();
     $studentId = uniqid('student_');
-    $allData['students'][$studentId] = ['name' => $data['name']];
+    $allData['students'][$studentId] = [
+        'name' => $data['name'],
+        'enrolledCourses' => []
+    ];
     saveData($allData);
     echo json_encode(['success' => true, 'message' => 'Student added successfully']);
 }
@@ -79,7 +122,9 @@ function addStudent($data) {
 function updateCourse($data) {
     $allData = loadData();
     if (isset($allData['courses'][$data['courseId']])) {
-        $allData['courses'][$data['courseId']]['title'] = $data['title'];
+        $course = &$allData['courses'][$data['courseId']];
+        $course['title'] = $data['title'];
+        $course['textbooks'] = array_merge($data['primaryTextbooks'], $data['secondaryTextbooks']);
         saveData($allData);
         echo json_encode(['success' => true, 'message' => 'Course updated successfully']);
     } else {
