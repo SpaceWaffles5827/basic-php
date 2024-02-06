@@ -170,10 +170,18 @@ function sendFormData(path, data, callback) {
 
 function addCourse() {
     const title = document.getElementById("courseTitle").value;
-    const primaryTextbooks = Array.from(document.getElementById("primaryTextbooks").selectedOptions)
+    let primaryTextbooks = Array.from(document.getElementById("primaryTextbooks").selectedOptions)
                                   .map(option => option.value);
-    const secondaryTextbooks = Array.from(document.getElementById("secondaryTextbooks").selectedOptions)
+    let secondaryTextbooks = Array.from(document.getElementById("secondaryTextbooks").selectedOptions)
                                     .map(option => option.value);
+
+    if (primaryTextbooks.includes("none")) {
+        primaryTextbooks = [];
+    }
+
+    if (secondaryTextbooks.includes("none")) {
+        secondaryTextbooks = [];
+    }
 
     const courseData = {
         action: "addCourse",
@@ -191,6 +199,7 @@ function addCourse() {
         }
     });
 }
+
 
 function addTextbook() {
     const textbookData = {
@@ -246,6 +255,21 @@ function populateDropdowns(data) {
     });
 }
 
+function removeCourse(courseId) {
+    const data = {
+        action: "removeCourse",
+        courseId: courseId
+    };
+    sendFormData("server.php", data, function(response) {
+        if (response.success) {
+            alert("Course removed successfully");
+            fetchData(); // Refresh to show updated data
+        } else {
+            alert("Failed to remove course: " + (response.message || "Unknown error"));
+        }
+    });
+}
+
 function addStudentToCourse(studentId, courseId) {
     const data = {
         action: "addStudentToCourse",
@@ -275,8 +299,17 @@ function fetchData() {
             const primaryTextbooksDropdown = document.getElementById("primaryTextbooks");
             const secondaryTextbooksDropdown = document.getElementById("secondaryTextbooks");
 
-            primaryTextbooksDropdown.innerHTML = '';
-            secondaryTextbooksDropdown.innerHTML = '';
+            const noneOption = document.createElement('option');
+            noneOption.value = "none";
+            noneOption.textContent = "None";
+
+            // Add the "None" option to both primary and secondary textbooks dropdowns
+            primaryTextbooksDropdown.innerHTML = ''; // Clear existing options
+            primaryTextbooksDropdown.appendChild(noneOption);
+
+            secondaryTextbooksDropdown.innerHTML = ''; // Clear existing options
+            secondaryTextbooksDropdown.appendChild(noneOption.cloneNode(true));
+
 
             Object.entries(response.data.textbooks).forEach(([textbookId, textbook]) => {
                 const primaryOption = document.createElement('option');
@@ -300,11 +333,17 @@ function fetchData() {
                 const textbooks = course.textbooks.map(textbookId => response.data.textbooks[textbookId]?.title || "Unknown Textbook").join(", ");
                 li.textContent += textbooks;
 
-                // Update button for course
                 const updateButton = document.createElement('button');
                 updateButton.textContent = 'Update';
                 updateButton.onclick = () => showUpdateCourseForm(courseId, course.title); // Function to show and pre-fill the course update form
                 li.appendChild(updateButton);
+
+                // add remove course button
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeCourse(courseId); // Function to remove the course
+                li.appendChild(removeButton);
+
 
                 coursesList.appendChild(li);
             });

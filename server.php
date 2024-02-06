@@ -21,6 +21,9 @@ header('Content-Type: application/json');
 $requestData = json_decode(file_get_contents('php://input'), true);
 
 switch ($requestData['action']) {
+    case 'removeCourse':
+        removeCourse($requestData);
+        break;
     case 'removeStudentFromCourse':
         removeStudentFromCourse($requestData);
         break;
@@ -106,6 +109,17 @@ function addTextbook($data) {
     ];
     saveData($allData);
     echo json_encode(['success' => true, 'message' => 'Textbook added successfully']);
+}
+
+function removeCourse($data) {
+    $allData = loadData();
+    if (isset($allData['courses'][$data['courseId']])) {
+        unset($allData['courses'][$data['courseId']]);
+        saveData($allData);
+        echo json_encode(['success' => true, 'message' => 'Course removed successfully']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Course not found']);
+    }
 }
 
 function addStudent($data) {

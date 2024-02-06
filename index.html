@@ -16,9 +16,11 @@
                 <input type="text" id="courseTitle" name="courseTitle" required><br>
                 <label for="primaryTextbooks">Primary Textbooks:</label>
                 <select id="primaryTextbooks" name="primaryTextbooks[]" multiple required>
+                    <option value="none">None</option>
                 </select><br>
                 <label for="secondaryTextbooks">Secondary Textbooks:</label>
                 <select id="secondaryTextbooks" name="secondaryTextbooks[]" multiple required>
+                    <option value="none">None</option>
                 </select><br>
                 <input type="submit" value="Add Course">
             </form>
@@ -32,11 +34,11 @@
                 <input type="text" id="updateCourseTitle" name="courseTitle" required><br>
                 <label for="updatePrimaryTextbooks">Primary Textbooks:</label>
                 <select id="updatePrimaryTextbooks" name="primaryTextbooks[]" multiple required>
-                    <!-- Textbook options will be dynamically loaded -->
+                    <option value="none">None</option>
                 </select><br>
                 <label for="updateSecondaryTextbooks">Secondary Textbooks:</label>
                 <select id="updateSecondaryTextbooks" name="secondaryTextbooks[]" multiple required>
-                    <!-- Textbook options will be dynamically loaded -->
+                    <option value="none">None</option>
                 </select><br>
                 <input type="submit" value="Update Course">
                 <button type="button" class="cancelButton">Cancel</button>

@@ -7,18 +7,6 @@
                 "textbook_2"
             ]
         },
-        "course_65c180a3c71a1": {
-            "title": "test123",
-            "textbooks": []
-        },
-        "course_65c182b97035d": {
-            "title": "Jacks course",
-            "textbooks": []
-        },
-        "course_65c183da2ab64": {
-            "title": "Samirs class",
-            "textbooks": []
-        },
         "course_65c18425ee7f8": {
             "title": "Samirs class2",
             "textbooks": []
@@ -47,11 +35,21 @@
                 "textbook_1",
                 "textbook_2"
             ]
+        },
+        "course_65c1a085b901d": {
+            "title": "none",
+            "textbooks": []
+        },
+        "course_65c1a08d341f9": {
+            "title": "none 1",
+            "textbooks": [
+                "textbook_1"
+            ]
         }
     },
     "students": {
         "student_1": {
-            "name": "Sam 123",
+            "name": "Sam",
             "enrolledCourses": [
                 "course_1",
                 "course_65c180a3c71a1",
