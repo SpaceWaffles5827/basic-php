@@ -124,19 +124,27 @@
         
 
         <section>
-            <h2>Add Textbook to student</h2>
-            <form id="addTextbookToStudentForm">
-                <label for="selectStudentForTextbook">Select Student:</label>
-                <select id="selectStudentForTextbook" name="studentId" required>
+            <h2>Manage Student's Textbooks</h2>
+            <form id="manageStudentTextbooksForm">
+                <div>
+                    <label for="textbookAction">Action:</label>
+                    <select id="textbookAction" name="textbookAction">
+                        <option value="add">Add Textbook to Student</option>
+                        <option value="remove">Remove Textbook from Student</option>
+                    </select>
+                </div>
+                <label for="selectStudentForTextbookAction">Select Student:</label>
+                <select id="selectStudentForTextbookAction" name="studentId" required>
                     <!-- Student options will be dynamically loaded here -->
                 </select><br>
-                <label for="selectTextbook">Select Textbook:</label>
-                <select id="selectTextbook" name="textbookId" required>
+                <label for="selectTextbookForAction">Select Textbook:</label>
+                <select id="selectTextbookForAction" name="textbookId" required>
                     <!-- Textbook options will be dynamically loaded here -->
                 </select><br>
-                <input type="submit" value="Add Textbook to Student">
+                <input type="submit" value="Submit">
             </form>
         </section>
+
     </div>
     <section id="displayArea">
         <h2>Current Data</h2>

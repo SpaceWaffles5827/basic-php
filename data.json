@@ -6,11 +6,14 @@
         }
     },
     "students": {
-        "student_65c1af42441a4": {
+        "student_65c1b80807ac1": {
             "name": "Jack",
-            "enrolledCourses": [],
+            "enrolledCourses": [
+                "course_65c1a71b97e16"
+            ],
             "textbooks": [
-                "textbook_65c1a72399409"
+                "textbook_65c1a72399409",
+                "textbook_65c1b819d10f2"
             ]
         }
     },
@@ -20,6 +23,12 @@
             "publisher": "jack",
             "edition": "123",
             "year": "123"
+        },
+        "textbook_65c1b819d10f2": {
+            "title": "other book",
+            "publisher": "123",
+            "edition": "123",
+            "year": "23"
         }
     }
 }

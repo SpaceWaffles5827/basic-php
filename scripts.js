@@ -35,13 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.getElementById('addTextbookToStudentForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const studentId = document.getElementById('selectStudentForTextbook').value;
-        const textbookId = document.getElementById('selectTextbook').value;
-        addTextbookToStudent(studentId, textbookId);
-    });
-
     document.getElementById('manageStudentEnrollmentForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const action = document.getElementById('action').value;
@@ -54,6 +47,21 @@ document.addEventListener('DOMContentLoaded', function() {
             removeStudentFromCourse(studentId, courseId);
         }
     });
+
+    document.getElementById('manageStudentTextbooksForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const action = document.getElementById('textbookAction').value;
+        const studentId = document.getElementById('selectStudentForTextbookAction').value;
+        const textbookId = document.getElementById('selectTextbookForAction').value;
+        
+        if (action === 'add') {
+            addTextbookToStudent(studentId, textbookId);
+        } else if (action === 'remove') {
+            removeTextbookFromStudent(studentId, textbookId);
+        }
+    });
+    
+
     fetchData();
 });
 
@@ -68,6 +76,22 @@ function updateCourse() {
             alert("Course updated successfully");
             fetchData(); // Refresh data display
             document.getElementById('updateCourseSection').style.display = 'none';
+        }
+    });
+}
+
+function removeTextbookFromStudent(studentId, textbookId) {
+    const data = {
+        action: "removeTextbookFromStudent",
+        studentId: studentId,
+        textbookId: textbookId
+    };
+    sendFormData("server.php", data, function(response) {
+        if (response.success) {
+            alert("Textbook removed from student successfully");
+            fetchData(); // Refresh to show updated data
+        } else {
+            alert("Failed to remove textbook from student: " + (response.message || "Unknown error"));
         }
     });
 }
@@ -265,8 +289,8 @@ function populateDropdowns(data) {
     const selectCourse = document.getElementById('manageSelectCourse');
 
     // Dropdown for adding a textbook to a student
-    const selectStudentForTextbook = document.getElementById('selectStudentForTextbook');
-    const selectTextbook = document.getElementById('selectTextbook');
+    const selectStudentForTextbook = document.getElementById('selectStudentForTextbookAction');
+    const selectTextbook = document.getElementById('selectTextbookForAction');
 
 
     // Clear current options
