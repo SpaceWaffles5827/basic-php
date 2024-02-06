@@ -62,21 +62,6 @@ switch ($requestData['action']) {
         break;
 }
 
-function removeStudentFromCourse($data) {
-    $allData = loadData();
-    $studentId = $data['studentId'];
-    $courseId = $data['courseId'];
-
-    // Remove the course from the student's list of enrolled courses
-    if (($key = array_search($courseId, $allData['students'][$studentId]['enrolledCourses'])) !== false) {
-        unset($allData['students'][$studentId]['enrolledCourses'][$key]);
-    }
-
-    // Save the updated data
-    saveData($allData);
-    echo json_encode(['success' => true, 'message' => 'Student removed from course successfully']);
-}
-
 function removeTextbook($data) {
     $allData = loadData();
     if (isset($allData['textbooks'][$data['textbookId']])) {
@@ -110,6 +95,19 @@ function addStudentToCourse($data) {
 
     saveData($allData);
     echo json_encode(['success' => true, 'message' => 'Student added to course successfully']);
+}
+
+function removeStudentFromCourse($data) {
+    $allData = loadData();
+    $studentId = $data['studentId'];
+    $courseId = $data['courseId'];
+
+    if (($key = array_search($courseId, $allData['students'][$studentId]['enrolledCourses'])) !== false) {
+        unset($allData['students'][$studentId]['enrolledCourses'][$key]);
+    }
+
+    saveData($allData);
+    echo json_encode(['success' => true, 'message' => 'Student removed from course successfully']);
 }
 
 function addCourse($data) {

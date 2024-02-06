@@ -42,6 +42,13 @@ document.addEventListener('DOMContentLoaded', function() {
         addStudentToCourse(studentId, courseId);
     });
 
+    document.getElementById('removeStudentFromCourseForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const studentId = document.getElementById('selectStudent').value;
+        const courseId = document.getElementById('selectCourse').value;
+        removeStudentFromCourse(studentId, courseId);
+    });
+
     fetchData();
 });
 
@@ -231,29 +238,47 @@ function addStudent() {
 }
 
 function populateDropdowns(data) {
+    // Dropdowns for adding a student to a course
     const selectStudent = document.getElementById('selectStudent');
     const selectCourse = document.getElementById('selectCourse');
 
-    // Clear current options
+    // Dropdowns for removing a student from a course
+    const removeStudent = document.getElementById('removeStudent');
+    const removeCourse = document.getElementById('removeCourse');
+
+    // Clear current options for all dropdowns
     selectStudent.innerHTML = '';
     selectCourse.innerHTML = '';
+    removeStudent.innerHTML = '';
+    removeCourse.innerHTML = '';
 
-    // Populate students
+    // Populate students for adding to a course
     Object.entries(data.students).forEach(([studentId, student]) => {
-        let option = document.createElement('option');
-        option.value = studentId;
-        option.textContent = student.name;
-        selectStudent.appendChild(option);
+        let optionForAdd = document.createElement('option');
+        optionForAdd.value = studentId;
+        optionForAdd.textContent = student.name;
+        selectStudent.appendChild(optionForAdd);
+
+        let optionForRemove = document.createElement('option');
+        optionForRemove.value = studentId;
+        optionForRemove.textContent = student.name;
+        removeStudent.appendChild(optionForRemove);
     });
 
-    // Populate courses
+    // Populate courses for adding a student to
     Object.entries(data.courses).forEach(([courseId, course]) => {
-        let option = document.createElement('option');
-        option.value = courseId;
-        option.textContent = course.title;
-        selectCourse.appendChild(option);
+        let optionForAdd = document.createElement('option');
+        optionForAdd.value = courseId;
+        optionForAdd.textContent = course.title;
+        selectCourse.appendChild(optionForAdd);
+
+        let optionForRemove = document.createElement('option');
+        optionForRemove.value = courseId;
+        optionForRemove.textContent = course.title;
+        removeCourse.appendChild(optionForRemove);
     });
 }
+
 
 function removeCourse(courseId) {
     const data = {
@@ -282,6 +307,22 @@ function addStudentToCourse(studentId, courseId) {
             fetchData(); // Refresh to show updated data
         } else {
             alert("Failed to add student to course: " + (response.message || "Unknown error"));
+        }
+    });
+}
+
+function removeStudentFromCourse(studentId, courseId) {
+    const data = {
+        action: "removeStudentFromCourse",
+        studentId: studentId,
+        courseId: courseId
+    };
+    sendFormData("server.php", data, function(response) {
+        if (response.success) {
+            alert("Student removed from course successfully");
+            fetchData();
+        } else {
+            alert("Failed to remove student from course: " + (response.message || "Unknown error"));
         }
     });
 }
@@ -426,6 +467,7 @@ function fetchData() {
 
                 textbooksList.appendChild(li);
             });
+
             displayArea.appendChild(textbooksList);
         }
     });

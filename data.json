@@ -1,23 +1,20 @@
 {
-    "courses": [],
+    "courses": {
+        "course_65c1a71b97e16": {
+            "title": "Jacks class",
+            "textbooks": []
+        }
+    },
     "students": {
-        "student_65c18b97a189e": {
+        "student_65c1a7284e3b6": {
             "name": "Jack",
-            "enrolledCourses": [
-                "course_1"
-            ]
+            "enrolledCourses": []
         }
     },
     "textbooks": {
-        "textbook_65c1884fd97bf": {
-            "title": "joes book",
+        "textbook_65c1a72399409": {
+            "title": "Jacks book",
             "publisher": "jack",
-            "edition": "321",
-            "year": "321"
-        },
-        "textbook_65c18be98329f": {
-            "title": "test book 123",
-            "publisher": "123",
             "edition": "123",
             "year": "123"
         }
