@@ -21,6 +21,9 @@ header('Content-Type: application/json');
 $requestData = json_decode(file_get_contents('php://input'), true);
 
 switch ($requestData['action']) {
+    case 'removeTextbook':
+        removeTextbook($requestData);
+        break;
     case 'removeStudent':
         removeStudent($requestData);
         break;
@@ -72,6 +75,17 @@ function removeStudentFromCourse($data) {
     // Save the updated data
     saveData($allData);
     echo json_encode(['success' => true, 'message' => 'Student removed from course successfully']);
+}
+
+function removeTextbook($data) {
+    $allData = loadData();
+    if (isset($allData['textbooks'][$data['textbookId']])) {
+        unset($allData['textbooks'][$data['textbookId']]);
+        saveData($allData);
+        echo json_encode(['success' => true, 'message' => 'Textbook removed successfully']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Textbook not found']);
+    }
 }
 
 function removeStudent($data) {

@@ -9,30 +9,6 @@
         }
     },
     "textbooks": {
-        "textbook_1": {
-            "title": "Programming Basics 123",
-            "publisher": "pppp",
-            "edition": "2",
-            "year": "2020"
-        },
-        "textbook_2": {
-            "title": "Advanced Programming",
-            "publisher": "ABC",
-            "edition": "2",
-            "year": "2022"
-        },
-        "textbook_65c180ae0a9fa": {
-            "title": "Jack textbook",
-            "publisher": "123",
-            "edition": "123",
-            "year": "123"
-        },
-        "textbook_65c1844d5bb79": {
-            "title": "bobs book",
-            "publisher": "123",
-            "edition": "123",
-            "year": "123"
-        },
         "textbook_65c1884fd97bf": {
             "title": "joes book",
             "publisher": "jack",

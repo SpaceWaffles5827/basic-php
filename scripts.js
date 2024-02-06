@@ -301,6 +301,21 @@ function removeStudent(studentId) {
     });
 }
 
+function removeTextbook(textbookId) {
+    const data = {
+        action: "removeTextbook",
+        textbookId: textbookId
+    };
+    sendFormData("server.php", data, function(response) {
+        if (response.success) {
+            alert("Textbook removed successfully");
+            fetchData(); // Refresh to show updated data
+        } else {
+            alert("Failed to remove textbook: " + (response.message || "Unknown error"));
+        }
+    });
+}
+
 
 function fetchData() {
     sendFormData("server.php", {action: "fetchAll"}, function(response) {
@@ -402,6 +417,12 @@ function fetchData() {
                 updateButton.textContent = 'Update';
                 updateButton.onclick = () => showUpdateTextbookForm(textbookId, textbook.title, textbook.publisher, textbook.edition, textbook.year); // Assuming this function exists
                 li.appendChild(updateButton);
+
+                // add remove button
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeTextbook(textbookId); 
+                li.appendChild(removeButton);
 
                 textbooksList.appendChild(li);
             });
