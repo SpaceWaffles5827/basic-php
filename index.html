@@ -99,35 +99,30 @@
 
     </div>
     <div id="addUpdateSections">
+
         <section>
-            <h2>Add Student to Course</h2>
-            <form id="addStudentToCourseForm">
-                <label for="selectStudent">Select Student:</label>
-                <select id="selectStudent" name="studentId" required>
+            <h2>Manage Student Enrollment</h2>
+            <form id="manageStudentEnrollmentForm">
+                <div>
+                    <label for="action">Action:</label>
+                    <select id="action" name="action">
+                        <option value="add">Add Student to Course</option>
+                        <option value="remove">Remove Student from Course</option>
+                    </select>
+                </div>
+                <label for="manageSelectStudent">Select Student:</label>
+                <select id="manageSelectStudent" name="studentId" required>
                     <!-- Student options will be dynamically loaded here -->
                 </select><br>
-                <label for="selectCourse">Select Course:</label>
-                <select id="selectCourse" name="courseId" required>
+                <label for="manageSelectCourse">Select Course:</label>
+                <select id="manageSelectCourse" name="courseId" required>
                     <!-- Course options will be dynamically loaded here -->
                 </select><br>
-                <input type="submit" value="Add Student to Course">
+                <input type="submit" value="Submit">
             </form>
         </section>
         
-        <section>
-            <h2>Remove Student from Course</h2>
-            <form id="removeStudentFromCourseForm">
-                <label for="removeStudent">Select Student:</label>
-                <select id="removeStudent" name="studentId" required>
-                    <!-- Student options will be dynamically loaded here -->
-                </select><br>
-                <label for="removeCourse">Select Course:</label>
-                <select id="removeCourse" name="courseId" required>
-                    <!-- Course options will be dynamically loaded here -->
-                </select><br>
-                <input type="submit" value="Remove Student from Course">
-            </form>
-        </section>
+
         <section>
             <h2>Add Textbook to student</h2>
             <form id="addTextbookToStudentForm">

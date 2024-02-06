@@ -35,20 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.getElementById('addStudentToCourseForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const studentId = document.getElementById('selectStudent').value;
-        const courseId = document.getElementById('selectCourse').value;
-        addStudentToCourse(studentId, courseId);
-    });
-
-    document.getElementById('removeStudentFromCourseForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const studentId = document.getElementById('selectStudent').value;
-        const courseId = document.getElementById('selectCourse').value;
-        removeStudentFromCourse(studentId, courseId);
-    });
-
     document.getElementById('addTextbookToStudentForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const studentId = document.getElementById('selectStudentForTextbook').value;
@@ -56,6 +42,18 @@ document.addEventListener('DOMContentLoaded', function() {
         addTextbookToStudent(studentId, textbookId);
     });
 
+    document.getElementById('manageStudentEnrollmentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const action = document.getElementById('action').value;
+        const studentId = document.getElementById('manageSelectStudent').value;
+        const courseId = document.getElementById('manageSelectCourse').value;
+        
+        if (action === 'add') {
+            addStudentToCourse(studentId, courseId);
+        } else if (action === 'remove') {
+            removeStudentFromCourse(studentId, courseId);
+        }
+    });
     fetchData();
 });
 
@@ -263,23 +261,18 @@ function addStudent() {
 
 function populateDropdowns(data) {
     // Dropdowns for adding a student to a course
-    const selectStudent = document.getElementById('selectStudent');
-    const selectCourse = document.getElementById('selectCourse');
+    const selectStudent = document.getElementById('manageSelectStudent');
+    const selectCourse = document.getElementById('manageSelectCourse');
 
     // Dropdown for adding a textbook to a student
     const selectStudentForTextbook = document.getElementById('selectStudentForTextbook');
     const selectTextbook = document.getElementById('selectTextbook');
 
-    // Dropdowns for removing a student from a course
-    const removeStudent = document.getElementById('removeStudent');
-    const removeCourse = document.getElementById('removeCourse');
 
     // Clear current options
     selectStudentForTextbook.innerHTML = '';
     selectStudent.innerHTML = '';
     selectCourse.innerHTML = '';
-    removeStudent.innerHTML = '';
-    removeCourse.innerHTML = '';
     selectTextbook.innerHTML = '';
 
     Object.entries(data.students).forEach(([studentId, student]) => {
@@ -288,7 +281,6 @@ function populateDropdowns(data) {
         option.textContent = student.name;
         selectStudent.appendChild(option);
         let optionForRemove = option.cloneNode(true);
-        removeStudent.appendChild(optionForRemove);
     });
 
     // add students to selectStudentForTextbook
@@ -306,8 +298,6 @@ function populateDropdowns(data) {
         option.textContent = course.title;
         selectCourse.appendChild(option);
         // Clone the option for removing courses
-        let optionForRemove = option.cloneNode(true);
-        removeCourse.appendChild(optionForRemove);
     });
 
     // Populate textbooks
