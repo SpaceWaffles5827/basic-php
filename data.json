@@ -1,7 +1,7 @@
 {
     "courses": {
         "course_65c1a71b97e16": {
-            "title": "Jacks class 123",
+            "title": "Jacks class",
             "textbooks": [
                 "textbook_65c1a72399409",
                 "textbook_65c1b819d10f2"
@@ -16,6 +16,15 @@
             ],
             "textbooks": [
                 "textbook_65c1a72399409",
+                "textbook_65c1b819d10f2"
+            ]
+        },
+        "student_65c1c0d953077": {
+            "name": "Sam",
+            "enrolledCourses": [
+                "course_65c1a71b97e16"
+            ],
+            "textbooks": [
                 "textbook_65c1b819d10f2"
             ]
         }

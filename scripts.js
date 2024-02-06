@@ -489,6 +489,17 @@ function fetchData() {
                 const textbooks = course.textbooks.map(textbookId => response.data.textbooks[textbookId]?.title || "Unknown Textbook").join(", ");
                 li.textContent += textbooks;
 
+                const enrolledStudents = Object.entries(response.data.students)
+                    .filter(([_, student]) => student.enrolledCourses.includes(courseId))
+                    .map(([studentId, student]) => student.name)
+                    .join(", ");
+
+                if (enrolledStudents.length > 0) {
+                    li.textContent += ` - Enrolled Students: ${enrolledStudents}`;
+                } else {
+                    li.textContent += " - No Students Enrolled";
+                }
+
                 const updateButton = document.createElement('button');
                 updateButton.textContent = 'Update';
                 updateButton.onclick = () => showUpdateCourseForm(courseId, course.title, response.data); // Function to show and pre-fill the course update form
@@ -511,25 +522,30 @@ function fetchData() {
             const studentsList = document.createElement('ul');
             Object.entries(response.data.students).forEach(([studentId, student]) => {
                 const li = document.createElement('li');
-                li.textContent = `${student.name} (ID: ${studentId}) - Enrolled Courses: `;
-                const enrolledCourses = student.enrolledCourses.map(courseId => response.data.courses[courseId]?.title || "Unknown Course").join(", ");
-                li.textContent += enrolledCourses ? enrolledCourses + ", " : "";
+                // Start with student name and ID
+                li.textContent = `${student.name} (ID: ${studentId}) - `;
+
+                // Append Textbooks: Adjusted to directly start listing textbooks
                 const textbooksContent = student.textbooks.map(textbookId => {
                     const textbook = response.data.textbooks[textbookId];
                     return textbook ? `${textbook.title} (Publisher: ${textbook.publisher}, Edition: ${textbook.edition}, Year: ${textbook.year})` : "Unknown Textbook";
                 }).join(", ");
-                li.textContent += " Textbooks: " + (textbooksContent || "None");
-            
+                
+                // Adding textbooks information
+                li.textContent += "Textbooks: " + (textbooksContent || "None");
+
+                // Update button for student
                 const updateButton = document.createElement('button');
                 updateButton.textContent = 'Update';
-                updateButton.onclick = () => showUpdateStudentForm(studentId, student.name); // Assuming this function exists
+                updateButton.onclick = () => showUpdateStudentForm(studentId, student.name);
                 li.appendChild(updateButton);
-            
+
+                // Remove button for student
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
-                removeButton.onclick = () => removeStudent(studentId); // Function to remove the student
+                removeButton.onclick = () => removeStudent(studentId);
                 li.appendChild(removeButton);
-            
+
                 studentsList.appendChild(li);
             });
             displayArea.appendChild(studentsList);
