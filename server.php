@@ -1,6 +1,7 @@
 <?php
 $dataFilePath = 'data.json';
 
+// Load the data from the file data.json
 function loadData() {
     global $dataFilePath;
     if (file_exists($dataFilePath)) {
@@ -10,6 +11,7 @@ function loadData() {
     return ['courses' => [], 'textbooks' => [], 'students' => []];
 }
 
+// Save the data to the file data.json
 function saveData($data) {
     global $dataFilePath;
     $jsonData = json_encode($data, JSON_PRETTY_PRINT);
@@ -20,6 +22,7 @@ header('Content-Type: application/json');
 
 $requestData = json_decode(file_get_contents('php://input'), true);
 
+// Handle the request action
 switch ($requestData['action']) {
     case 'removeTextbookFromStudent':
         removeTextbookFromStudent($requestData);
@@ -68,6 +71,7 @@ switch ($requestData['action']) {
         break;
 }
 
+// Add a textbook to a student
 function addTextbookToStudent($data) {
     $allData = loadData();
     $studentId = $data['studentId'];
@@ -81,6 +85,7 @@ function addTextbookToStudent($data) {
     echo json_encode(['success' => true, 'message' => 'Textbook added to student successfully']);
 }
 
+// Remove a textbook from the data
 function removeTextbook($data) {
     $allData = loadData();
     if (isset($allData['textbooks'][$data['textbookId']])) {
@@ -92,6 +97,7 @@ function removeTextbook($data) {
     }
 }
 
+// Remove a student from the data
 function removeStudent($data) {
     $allData = loadData();
     if (isset($allData['students'][$data['studentId']])) {
@@ -103,6 +109,7 @@ function removeStudent($data) {
     }
 }
 
+// Add a student to a course
 function addStudentToCourse($data) {
     $allData = loadData();
     $studentId = $data['studentId'];
@@ -116,6 +123,7 @@ function addStudentToCourse($data) {
     echo json_encode(['success' => true, 'message' => 'Student added to course successfully']);
 }
 
+// Remove a student from a course
 function removeStudentFromCourse($data) {
     $allData = loadData();
     $studentId = $data['studentId'];
@@ -129,6 +137,7 @@ function removeStudentFromCourse($data) {
     echo json_encode(['success' => true, 'message' => 'Student removed from course successfully']);
 }
 
+// Add a course to the data
 function addCourse($data) {
     $allData = loadData();
     $courseId = uniqid('course_');
@@ -143,6 +152,7 @@ function addCourse($data) {
     echo json_encode(['success' => true, 'message' => 'Course added successfully']);
 }
 
+// Add a textbook to the data
 function addTextbook($data) {
     $allData = loadData();
     $textbookId = uniqid('textbook_');
@@ -156,6 +166,7 @@ function addTextbook($data) {
     echo json_encode(['success' => true, 'message' => 'Textbook added successfully']);
 }
 
+// Remove a course from the data
 function removeCourse($data) {
     $allData = loadData();
     if (isset($allData['courses'][$data['courseId']])) {
@@ -167,6 +178,7 @@ function removeCourse($data) {
     }
 }
 
+// Remove a textbook from a student
 function removeTextbookFromStudent($data) {
     $allData = loadData();
     $studentId = $data['studentId'];
@@ -181,6 +193,7 @@ function removeTextbookFromStudent($data) {
     echo json_encode(['success' => true, 'message' => 'Textbook removed from student successfully']);
 }
 
+// Add a student to the data
 function addStudent($data) {
     $allData = loadData();
     $studentId = uniqid('student_');
@@ -193,6 +206,7 @@ function addStudent($data) {
     echo json_encode(['success' => true, 'message' => 'Student added successfully']);
 }
 
+// Update a course information
 function updateCourse($data) {
     $allData = loadData();
     if (isset($allData['courses'][$data['courseId']])) {
@@ -205,6 +219,7 @@ function updateCourse($data) {
     }
 }
 
+// Update a textbook information
 function updateTextbook($data) {
     $allData = loadData();
     if (isset($allData['textbooks'][$data['textbookId']])) {
@@ -219,6 +234,7 @@ function updateTextbook($data) {
     }
 }
 
+// Update a student information
 function updateStudent($data) {
     $allData = loadData();
     if (isset($allData['students'][$data['studentId']])) {
@@ -230,6 +246,7 @@ function updateStudent($data) {
     }
 }
 
+// Fetch all the data from the file
 function fetchAll() {
     echo json_encode(['success' => true, 'data' => loadData()]);
 }

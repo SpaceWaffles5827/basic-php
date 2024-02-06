@@ -1,3 +1,4 @@
+// Event listener for the form submission
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('courseForm').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -64,6 +65,22 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchData();
 });
 
+// Function to send form data to the server
+function sendFormData(path, data, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", path, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function() {
+        if (this.status >= 200 && this.status < 300) {
+            callback(JSON.parse(xhr.responseText));
+        } else {
+            console.error("Request failed with status: " + xhr.status);
+        }
+    };
+    xhr.send(JSON.stringify(data));
+}
+
+// Function to add / create a new course
 function updateCourse() {
     const courseId = document.getElementById('updateCourseId').value;
     const title = document.getElementById('updateCourseTitle').value;
@@ -93,7 +110,7 @@ function updateCourse() {
     });
 }
 
-
+// Function to remove a textbook from a student
 function removeTextbookFromStudent(studentId, textbookId) {
     const data = {
         action: "removeTextbookFromStudent",
@@ -110,6 +127,7 @@ function removeTextbookFromStudent(studentId, textbookId) {
     });
 }
 
+// Function to add a textbook to a student
 function addTextbookToStudent(studentId, textbookId) {
     const data = {
         action: "addTextbookToStudent",
@@ -126,6 +144,7 @@ function addTextbookToStudent(studentId, textbookId) {
     });
 }
 
+// Function to update a textbook information
 function updateTextbook() {
     const textbookData = {
         action: "updateTextbook",
@@ -144,6 +163,7 @@ function updateTextbook() {
     });
 }
 
+// Function to update a student information
 function updateStudent() {
     const studentData = {
         action: "updateStudent",
@@ -159,6 +179,7 @@ function updateStudent() {
     });
 }
 
+// Function to show the update course info form HTML
 function showUpdateCourseForm(courseId, courseTitle, data) {
     const updateCourseSection = document.getElementById('updateCourseSection');
     const updateCourseId = document.getElementById('updateCourseId');
@@ -201,7 +222,7 @@ function showUpdateCourseForm(courseId, courseTitle, data) {
     updateCourseSection.style.display = 'block';
 }
 
-
+// Function to show the update textbook info form HTML
 function showUpdateTextbookForm(textbookId, title, publisher, edition, year) {
     const updateTextbookSection = document.getElementById('updateTextbookSection');
     const updateTextbookId = document.getElementById('updateTextbookId');
@@ -219,6 +240,7 @@ function showUpdateTextbookForm(textbookId, title, publisher, edition, year) {
     updateTextbookSection.style.display = 'block';
 }
 
+// Function to show the update student info form HTML
 function showUpdateStudentForm(studentId, studentName) {
     const updateStudentSection = document.getElementById('updateStudentSection');
     const updateStudentId = document.getElementById('updateStudentId');
@@ -230,20 +252,7 @@ function showUpdateStudentForm(studentId, studentName) {
     updateStudentSection.style.display = 'block';
 }
 
-function sendFormData(path, data, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", path, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onload = function() {
-        if (this.status >= 200 && this.status < 300) {
-            callback(JSON.parse(xhr.responseText));
-        } else {
-            console.error("Request failed with status: " + xhr.status);
-        }
-    };
-    xhr.send(JSON.stringify(data));
-}
-
+// Function to add / create a new course
 function addCourse() {
     const title = document.getElementById("courseTitle").value;
     let primaryTextbooks = Array.from(document.getElementById("primaryTextbooks").selectedOptions)
@@ -276,7 +285,7 @@ function addCourse() {
     });
 }
 
-
+// Function to add / create a new textbook
 function addTextbook() {
     const textbookData = {
         action: "addTextbook",
@@ -293,6 +302,7 @@ function addTextbook() {
     });
 }
 
+// Function to add / create a new student
 function addStudent() {
     const studentData = {
         action: "addStudent",
@@ -307,6 +317,7 @@ function addStudent() {
     });
 }
 
+// Function to populate the dropdowns with the data from the server
 function populateDropdowns(data) {
     const selectStudent = document.getElementById('manageSelectStudent');
     const selectCourse = document.getElementById('manageSelectCourse');
@@ -350,7 +361,7 @@ function populateDropdowns(data) {
     });
 }
 
-
+// Function to remove / delete a course
 function removeCourse(courseId) {
     const data = {
         action: "removeCourse",
@@ -366,6 +377,7 @@ function removeCourse(courseId) {
     });
 }
 
+// Function to add a student to a course
 function addStudentToCourse(studentId, courseId) {
     const data = {
         action: "addStudentToCourse",
@@ -382,6 +394,7 @@ function addStudentToCourse(studentId, courseId) {
     });
 }
 
+// Function to remove a student from a course
 function removeStudentFromCourse(studentId, courseId) {
     const data = {
         action: "removeStudentFromCourse",
@@ -398,6 +411,7 @@ function removeStudentFromCourse(studentId, courseId) {
     });
 }
 
+// Function to remove / delete a student
 function removeStudent(studentId) {
     const data = {
         action: "removeStudent",
@@ -413,6 +427,7 @@ function removeStudent(studentId) {
     });
 }
 
+// Function to remove / delete a textbook
 function removeTextbook(textbookId) {
     const data = {
         action: "removeTextbook",
@@ -428,7 +443,8 @@ function removeTextbook(textbookId) {
     });
 }
 
-
+// Function to fetch the data from the server and display it on the page
+// It also populates the dropdowns with the data when called
 function fetchData() {
     sendFormData("server.php", {action: "fetchAll"}, function(response) {
         if (response.success && response.data) {
