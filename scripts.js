@@ -507,6 +507,7 @@ function fetchData() {
 
                 // add remove course button
                 const removeButton = document.createElement('button');
+                removeButton.style.backgroundColor = 'red';
                 removeButton.textContent = 'Remove';
                 removeButton.onclick = () => removeCourse(courseId); // Function to remove the course
                 li.appendChild(removeButton);
@@ -542,6 +543,7 @@ function fetchData() {
 
                 // Remove button for student
                 const removeButton = document.createElement('button');
+                removeButton.style.backgroundColor = 'red';
                 removeButton.textContent = 'Remove';
                 removeButton.onclick = () => removeStudent(studentId);
                 li.appendChild(removeButton);
@@ -567,6 +569,7 @@ function fetchData() {
 
                 // add remove button
                 const removeButton = document.createElement('button');
+                removeButton.style.backgroundColor = 'red';
                 removeButton.textContent = 'Remove';
                 removeButton.onclick = () => removeTextbook(textbookId); 
                 li.appendChild(removeButton);

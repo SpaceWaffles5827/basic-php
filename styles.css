@@ -79,3 +79,7 @@ button:hover {
     gap: 8px;
     flex-wrap: wrap;
 }
+
+#removeButton {
+    background-color: red;
+}
