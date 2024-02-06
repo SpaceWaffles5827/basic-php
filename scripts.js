@@ -286,6 +286,20 @@ function addStudentToCourse(studentId, courseId) {
     });
 }
 
+function removeStudent(studentId) {
+    const data = {
+        action: "removeStudent",
+        studentId: studentId
+    };
+    sendFormData("server.php", data, function(response) {
+        if (response.success) {
+            alert("Student removed successfully");
+            fetchData(); // Refresh to show updated data
+        } else {
+            alert("Failed to remove student: " + (response.message || "Unknown error"));
+        }
+    });
+}
 
 
 function fetchData() {
@@ -359,11 +373,16 @@ function fetchData() {
                 const enrolledCourses = student.enrolledCourses.map(courseId => response.data.courses[courseId]?.title || "Unknown Course").join(", ");
                 li.textContent += enrolledCourses;
 
-                // Update button for student
                 const updateButton = document.createElement('button');
                 updateButton.textContent = 'Update';
                 updateButton.onclick = () => showUpdateStudentForm(studentId, student.name); // Assuming this function exists
                 li.appendChild(updateButton);
+
+                // add remove button 
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeStudent(studentId); // Function to remove the student
+                li.appendChild(removeButton);
 
                 studentsList.appendChild(li);
             });
