@@ -6,9 +6,12 @@
         }
     },
     "students": {
-        "student_65c1a7284e3b6": {
+        "student_65c1af42441a4": {
             "name": "Jack",
-            "enrolledCourses": []
+            "enrolledCourses": [],
+            "textbooks": [
+                "textbook_65c1a72399409"
+            ]
         }
     },
     "textbooks": {

@@ -97,6 +97,8 @@
             </form>
         </section>
 
+    </div>
+    <div id="addUpdateSections">
         <section>
             <h2>Add Student to Course</h2>
             <form id="addStudentToCourseForm">
@@ -126,9 +128,21 @@
                 <input type="submit" value="Remove Student from Course">
             </form>
         </section>
-
+        <section>
+            <h2>Add Textbook to student</h2>
+            <form id="addTextbookToStudentForm">
+                <label for="selectStudentForTextbook">Select Student:</label>
+                <select id="selectStudentForTextbook" name="studentId" required>
+                    <!-- Student options will be dynamically loaded here -->
+                </select><br>
+                <label for="selectTextbook">Select Textbook:</label>
+                <select id="selectTextbook" name="textbookId" required>
+                    <!-- Textbook options will be dynamically loaded here -->
+                </select><br>
+                <input type="submit" value="Add Textbook to Student">
+            </form>
+        </section>
     </div>
-
     <section id="displayArea">
         <h2>Current Data</h2>
     </section>

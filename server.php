@@ -21,6 +21,9 @@ header('Content-Type: application/json');
 $requestData = json_decode(file_get_contents('php://input'), true);
 
 switch ($requestData['action']) {
+    case 'addTextbookToStudent':
+        addTextbookToStudent($requestData);
+        break;
     case 'removeTextbook':
         removeTextbook($requestData);
         break;
@@ -60,6 +63,19 @@ switch ($requestData['action']) {
     default:
         echo json_encode(['success' => false, 'message' => 'Invalid action']);
         break;
+}
+
+function addTextbookToStudent($data) {
+    $allData = loadData();
+    $studentId = $data['studentId'];
+    $textbookId = $data['textbookId'];
+
+    if (!in_array($textbookId, $allData['students'][$studentId]['textbooks'])) {
+        $allData['students'][$studentId]['textbooks'][] = $textbookId;
+    }
+
+    saveData($allData);
+    echo json_encode(['success' => true, 'message' => 'Textbook added to student successfully']);
 }
 
 function removeTextbook($data) {
@@ -153,7 +169,8 @@ function addStudent($data) {
     $studentId = uniqid('student_');
     $allData['students'][$studentId] = [
         'name' => $data['name'],
-        'enrolledCourses' => []
+        'enrolledCourses' => [],
+        'textbooks' => []
     ];
     saveData($allData);
     echo json_encode(['success' => true, 'message' => 'Student added successfully']);
